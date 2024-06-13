@@ -1,1 +1,1 @@
-# brain_tumor_model
+# Convolutional Neural Network (CNN)
