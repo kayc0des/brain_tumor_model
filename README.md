@@ -2,6 +2,8 @@
 
 This repository contains code and data for a brain tumor classification project. The goal of this project is to classify brain scans as either having a tumor (positive) or not having a tumor (negative) using a Convolutional Neural Network (CNN).
 
+A Convolutional Neural Network (CNN) is a type of deep learning algorithm specifically designed for processing structured grid data such as images. CNNs are particularly effective for image recognition and classification tasks due to their ability to automatically learn spatial hierarchies of features through the use of convolutional layers.
+
 ## Project Structure
 
 The repository is structured as follows:
@@ -53,6 +55,16 @@ The model used for this project is a Convolutional Neural Network (CNN) implemen
    - 2 units
    - Activation: Softmax
 
+### Why These Components?
+
+- **Convolutional Layers (Kernels):** Convolutional layers use filters (kernels) to scan through the input image and detect patterns such as edges, textures, and shapes. Each filter specializes in recognizing a specific feature, which helps the network learn spatial hierarchies of features in the images.
+
+- **Max Pooling:** Max pooling layers reduce the spatial dimensions of the feature maps, retaining only the most important features while reducing computational load and controlling overfitting. By taking the maximum value in each patch of the feature map, max pooling also introduces a form of translation invariance, which is beneficial for image recognition.
+
+- **ReLU Activation:** The Rectified Linear Unit (ReLU) activation function introduces non-linearity into the model, allowing it to learn complex patterns. ReLU also helps in preventing the vanishing gradient problem, where gradients become too small for effective training, by allowing gradients to flow more effectively during backpropagation.
+
+- **Softmax Activation:** The softmax function is used in the output layer for multi-class classification. It converts the logits (raw predictions) into probabilities, providing a probability distribution over the classes, which makes it easier to interpret the model's predictions.
+
 ### Regularization and Training
 
 - **L2 Regularization:** Applied to prevent overfitting by penalizing large weights.
@@ -83,7 +95,7 @@ The results suggest that the CNN achieved good performance on the training data 
 
 ## Prediction Example
 
-![Architecture](img/prediction.png)
+![Prediction](img/Prediction.png)
 
 ## Conclusion
 
