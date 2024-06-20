@@ -93,9 +93,14 @@ The validation accuracy is slightly lower than the training accuracy, which is t
 
 The results suggest that the CNN achieved good performance on the training data and generalizes well to unseen data. Further evaluation and testing might be needed to confirm the model's performance on completely new datasets.
 
-## Prediction Example
+## 10 Predictions
 
 ![Prediction](img/Prediction.png)
+
+
+## Error Analysis 
+
+[Explore](erroranalysis.md)
 
 ## Conclusion
 
@@ -103,4 +108,4 @@ This brain tumor classification project demonstrates the effectiveness of CNNs i
 
 ---
 
-For more details, refer to the scripts and documentation within the repository.
+- [kayc0des](https://github.com/kayc0des)
