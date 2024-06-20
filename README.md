@@ -83,7 +83,7 @@ These metrics indicate that the model learned the training data well, achieving 
 - **Validation Accuracy:** 88.70%
 - **Validation Loss:** 0.4164
 
-![Output](img/output.png)
+![Output](img/cnn.png)
 
 The validation accuracy is slightly lower than the training accuracy, which is typical and indicates good generalization. The higher validation loss compared to training loss is expected but still remains relatively low.
 
