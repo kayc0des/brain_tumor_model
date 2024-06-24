@@ -10,7 +10,13 @@ The repository is structured as follows:
 
 - `data/`: Contains the dataset used for model training.
   - `data_prep.ipynb`: Contains code to convert all 3762 brain scan images into a numpy array
-  - `image_data.npz`: Numpy arrays of all 3762 brain scan images.
+
+![Image to Numpy Array](img/image_processing.png) 
+
+  - `image_data.npz`: Numpy arrays of all 3762 brain scan images. Download the dataset here: [Brain Scans](data/image_data.npz)
+
+![Numpy Image Data](img/out_pro.png) 
+
   - `csv/BrainTumor.csv`: CSV file with target labels for each image (0 for no tumor, 1 for tumor) - Class column.
 
 - `model/`: Contains the saved model after training.
@@ -36,10 +42,14 @@ The model used for this project is a Convolutional Neural Network (CNN) implemen
    - Activation: ReLU
    - Max Pooling: 2x2
 
+![Conv Layer 1](img/conv1.png)
+
 2. **Convolutional Layer 2:**
    - 64 filters of size 3x3
    - Activation: ReLU
    - Max Pooling: 2x2
+
+![Conv Layer 2](img/conv2.png)
 
 3. **Flatten Layer:**
 
@@ -54,6 +64,8 @@ The model used for this project is a Convolutional Neural Network (CNN) implemen
 6. **Output Layer:**
    - 2 units
    - Activation: Softmax
+
+![Dense Layer](img/fully_dense.png)
 
 ### Why These Components?
 
@@ -96,7 +108,6 @@ The results suggest that the CNN achieved good performance on the training data 
 ## 10 Predictions
 
 ![Prediction](img/Prediction.png)
-
 
 ## Error Analysis 
 
