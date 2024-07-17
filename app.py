@@ -9,6 +9,7 @@ app = FastAPI()
 
 class_labels = ['No Tumor', 'Tumor']
 
+# Allowed origins
 origins = [
     "https://localhost",
     "https://localhost:8080",
