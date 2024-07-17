@@ -13,7 +13,8 @@ class_labels = ['No Tumor', 'Tumor']
 origins = [
     "https://localhost",
     "https://localhost:8080",
-    "https://localhost:3000"
+    "https://localhost:3000",
+    "https://brain-tumor-model-lrqs.onrender.com"
 ]
 
 # Define allowed origins
