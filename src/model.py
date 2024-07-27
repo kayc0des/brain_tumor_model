@@ -132,22 +132,3 @@ class Model:
         print(f"Accuracy: {accuracy:.4f}")
         print("Classification Report:")
         print(report)
-        
-
-if __name__ == "__main__":
-
-    cnn_model = Model()
-    data = np.load('../data/train/train_data.npz')
-    X_train = data['X']
-    Y_train = data['Y']
-    
-    data = np.load('../data/test/test_data.npz')
-    X_test = data['X']
-    Y_test = data['Y']
-
-    # history = cnn_model.train(X_train, Y_train, validation_split=0.2, epochs=10, batch_size=32)
-    # cnn_model.save_model(filepath='../model/braintumor.pkl')
-    
-    cnn_model.load_model(filepath='../model/braintumor.pkl')
-    cnn_model.evaluate(X_test, Y_test)
-    
