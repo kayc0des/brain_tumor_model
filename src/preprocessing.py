@@ -85,7 +85,7 @@ class DataPreprocessor:
         self.labels = labels.to_numpy()
         return self.labels
 
-    def data_to_npz(self):
+    def data_to_npz(self, filename):
         '''
         Saves image data and labels to an npz file
 
@@ -103,7 +103,7 @@ class DataPreprocessor:
                 'Labels not extracted. Please call extract_labels first.')
 
         np.savez_compressed(
-            os.path.join(self.data_dir, 'test.npz'), X=self.image_array, Y=self.labels)
+            os.path.join(self.data_dir, filename), X=self.image_array, Y=self.labels)
 
 class DataProcessor:
     '''
@@ -208,16 +208,3 @@ class DataProcessor:
 
         np.savez_compressed(os.path.join(train_dir, 'train_data1.npz'), X=self.X_train, Y=self.Y_train)
         np.savez_compressed(os.path.join(test_dir, 'test_data1.npz'), X=self.X_test, Y=self.Y_test)
-
-
-# Debug
-# data_pipeline = DataPreprocessor('images/', 'csv/', 'BrainTumor.csv', 'processed_data/')
-# data_pipeline.build_image_as_np()
-# data_pipeline.extract_labels()
-# data_pipeline.data_to_npz()
-
-# data_processor = DataProcessor('processed_data/data.npz')
-# data_processor.apply_scaler()
-# data_processor.apply_one_hot_encoding()
-# data_processor.perform_train_test_split()
-# data_processor.save_data()

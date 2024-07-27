@@ -7,6 +7,7 @@ import io
 import os
 from src.preprocessing import DataPreprocessor, DataProcessor
 from src.model import Model
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -30,6 +31,15 @@ app.add_middleware(
 
 model_path = 'model/braintumor.pkl'
 model = Model()  # Instantiate the Model class
+
+
+class RetrainRequest(BaseModel):
+    image_dir: str
+    target_dir: str
+    target_file: str
+    data_dir: str
+    epochs: int
+    npz_filename: str
 
 @app.post('/predict')
 async def predict(file: UploadFile = File(...)):
@@ -58,36 +68,43 @@ async def predict(file: UploadFile = File(...)):
     }
 
 @app.post('/retrain')
-async def retrain():
+async def retrain(request: RetrainRequest):
     try:
-        # Paths to data
-        image_dir = 'src/images/'
-        target_dir = 'src/csv/'
-        target_file = 'BrainTumor.csv'
-        data_dir = 'src/processed_data/'
-
         # Preprocess data
-        data_pipeline = DataPreprocessor(image_dir, target_dir, target_file, data_dir)
+        data_pipeline = DataPreprocessor(
+        image_dir=request.image_dir,
+        target_dir=request.target_dir,
+        target_file=request.target_file,
+        data_dir=request.data_dir
+        )
         data_pipeline.build_image_as_np()
         data_pipeline.extract_labels()
-        data_pipeline.data_to_npz()
+        data_pipeline.data_to_npz(request.npz_filename)
 
         # Process data
-        data_processor = DataProcessor('src/processed_data/test.npz')
+        data_processor = DataProcessor(os.path.join(request.data_dir, request.npz_filename))
         data_processor.apply_scaler()
         data_processor.apply_one_hot_encoding()
         X_train, X_test, Y_train, Y_test = data_processor.perform_train_test_split()
-        data_processor.save_data()
+        data_processor.save_data(train_dir='data/train/', test_dir='data/test/')
 
         # Save processed data
         data_processor.save_data()
 
         # Train model
         cnn_model = Model()
-        cnn_model.train(X_train, Y_train, validation_split=0.2, epochs=5, batch_size=32)
+        history = cnn_model.train(X_train, Y_train, validation_split=0.2, epochs=request.epochs, batch_size=32)
+        
+        training_metrics = {
+            "loss": history.history['loss'][-1],
+            "accuracy": history.history['accuracy'][-1],
+            "val_loss": history.history['val_loss'][-1],
+            "val_accuracy": history.history['val_accuracy'][-1]
+        }
+
         cnn_model.save_model(filepath='model/braintumor2.pkl')
 
-        return {"status": "Model retraining complete"}
+        return {"status": "Model retraining complete", "metrics": training_metrics}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
