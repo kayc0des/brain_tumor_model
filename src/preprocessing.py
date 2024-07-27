@@ -206,5 +206,5 @@ class DataProcessor:
         os.makedirs(train_dir, exist_ok=True)
         os.makedirs(test_dir, exist_ok=True)
 
-        np.savez_compressed(os.path.join(train_dir, 'train_data1.npz'), X=self.X_train, Y=self.Y_train)
-        np.savez_compressed(os.path.join(test_dir, 'test_data1.npz'), X=self.X_test, Y=self.Y_test)
+        np.savez_compressed(os.path.join(train_dir, 'train_data.npz'), X=self.X_train, Y=self.Y_train)
+        np.savez_compressed(os.path.join(test_dir, 'test_data.npz'), X=self.X_test, Y=self.Y_test)
