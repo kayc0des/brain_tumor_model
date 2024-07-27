@@ -1,1 +1,2 @@
 model/braintumor.h5 filter=lfs diff=lfs merge=lfs -text
+data/train/train_data.npz filter=lfs diff=lfs merge=lfs -text
