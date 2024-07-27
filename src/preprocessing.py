@@ -3,7 +3,6 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 
-
 class DataPreprocessor:
     '''
     This class handles data preprocessing tasks
@@ -23,20 +22,16 @@ class DataPreprocessor:
             None
         '''
         if (num_files := len(os.listdir(image_dir))) == 0:
-            raise ValueError(
-                'The image folder has no images, please add image data')
+            raise ValueError('The image folder has no images, please add image data')
         if (num_files := len(os.listdir(target_dir))) == 0:
-            raise ValueError(
-                'The target folder has no files, please add target data')
+            raise ValueError('The target folder has no files, please add target data')
         
         target_file_path = os.path.join(target_dir, target_file)
         if not os.path.isfile(target_file_path):
-            raise ValueError(
-                f'The target file {target_file} does not exist in the target folder')
+            raise ValueError(f'The target file {target_file} does not exist in the target folder')
 
         if not os.path.isdir(data_dir):
-            raise ValueError(
-                f'The data directory {data_dir} does not exist')
+            raise ValueError(f'The data directory {data_dir} does not exist')
 
         self.image_dir = image_dir
         self.target_dir = target_dir
@@ -80,11 +75,12 @@ class DataPreprocessor:
         df = pd.read_csv(self.target_file_path)
         labels = df['Class']
         
-        return labels
+        self.labels = labels.to_numpy()
+        return self.labels
 
     def image_to_npz(self):
         '''
-        Saves a Numpy array to an npz file
+        Saves image data and labels to an npz file
 
         Args:
             None
@@ -93,10 +89,18 @@ class DataPreprocessor:
             None
         '''
         if not hasattr(self, 'image_array'):
-            raise ValueError('Image array not built. Please call build_image_as_np first.')
+            raise ValueError(
+                'Image array not built. Please call build_image_as_np first.')
+        if not hasattr(self, 'labels'):
+            raise ValueError(
+                'Labels not extracted. Please call extract_labels first.')
 
-        np.savez_compressed(os.path.join(self.data_dir, 'image_data.npz'), images=self.image_array)
+        np.savez_compressed(
+            os.path.join(self.data_dir, 'data.npz'), X=self.image_array, Y=self.labels)
 
 
 # Debug
 data_pipeline = DataPreprocessor('images/', 'csv/', 'BrainTumor.csv', 'processed_data/')
+data_pipeline.build_image_as_np()
+data_pipeline.extract_labels()
+data_pipeline.image_to_npz()
