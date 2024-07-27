@@ -1,3 +1,4 @@
 # ignore environment
 venv/
 model/braintumor.pkl
+data/train/train_data.npz
