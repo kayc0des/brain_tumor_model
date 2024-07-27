@@ -85,7 +85,7 @@ class DataPreprocessor:
         self.labels = labels.to_numpy()
         return self.labels
 
-    def image_to_npz(self):
+    def data_to_npz(self):
         '''
         Saves image data and labels to an npz file
 
@@ -214,7 +214,7 @@ class DataProcessor:
 data_pipeline = DataPreprocessor('images/', 'csv/', 'BrainTumor.csv', 'processed_data/')
 data_pipeline.build_image_as_np()
 data_pipeline.extract_labels()
-data_pipeline.image_to_npz()
+data_pipeline.data_to_npz()
 
 data_processor = DataProcessor('processed_data/data.npz')
 data_processor.apply_scaler()
