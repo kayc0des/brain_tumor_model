@@ -4,7 +4,16 @@ This repository contains code and data for a brain tumor classification project.
 
 A Convolutional Neural Network (CNN) is a type of deep learning algorithm specifically designed for processing structured grid data such as images. CNNs are particularly effective for image recognition and classification tasks due to their ability to automatically learn spatial hierarchies of features through the use of convolutional layers.
 
-[Docker Image](https://hub.docker.com/r/kayc0des/brain_tumor_model)
+## Table of Content
+
+- [Project Structure](#project-structure)
+- [Dataset](#dataset)
+- [Model](#model)
+- [Analysis](#analysis)
+- [Setup: Clone Repository](#setup-clone-repository)
+- [Docker Image](#docker-image-instructions)
+- [Conclusion](#conclusion)
+
 
 ## Project Structure
 
@@ -187,7 +196,7 @@ The results suggest that the CNN achieved good performance on the training data 
 
 [Explore](erroranalysis.md)
 
-## Setup
+## Setup: Clone Repository
 
 1. **Clone the repository**:
     ```bash
@@ -210,6 +219,43 @@ The results suggest that the CNN achieved good performance on the training data 
     ```bash
     uvicorn app:app --reload --host 0.0.0.0 --port 8000
     ```
+
+## Docker Image Instructions
+
+1. **Install Docker:** If you do not have docker installed, visit [Docker's official website]() to install docker.
+
+2. **Log in to Docker Hub:** This is optional provided the repository is public
+   ```bash
+   docker login
+   ```
+
+3. **Pull the Docker Image:** Pull the image from Docker Hub using the image name
+   ```bash
+   docker pull kayc0des/brain_tumor_model:latest
+   ```
+
+4. **Run the Docker Container:** Start a container from the image.
+   ```bash
+   docker run -p 8000:8000 yourusername/brain_tumor_model:latest
+   ```
+   This command maps port 8000 on the host machine to port 8000 on the container, which is where your FastAPI app is running.
+
+5. **Access the FastAPI Application:** Once the container is running, access the FastAPI application by navigating to:
+   ```arduino
+   http://localhost:8000
+   ```
+   or
+   ```arduino
+   http://<host-ip>:8000
+   ```
+
+6. **Access Swagger UI:** To test the API endpoints,visit the Swagger UI at:
+   ```arduino
+   http://<host-ip>:8000/docs
+   ```
+
+7. **Test the Endpoints:** [Instructions](#project-structure)
+
 
 ## Conclusion
 
