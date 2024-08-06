@@ -129,6 +129,7 @@ class Model:
         accuracy = accuracy_score(true_classes, predicted_classes)
         report = classification_report(true_classes, predicted_classes)
 
-        print(f"Accuracy: {accuracy:.4f}")
-        print("Classification Report:")
-        print(report)
+        return {
+            "accuracy": accuracy,
+            "classification_report": report
+        }

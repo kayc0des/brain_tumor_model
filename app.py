@@ -8,6 +8,8 @@ import os
 from src.preprocessing import DataPreprocessor, DataProcessor
 from src.model import Model
 from pydantic import BaseModel
+from sklearn.metrics import classification_report, accuracy_score
+
 
 app = FastAPI()
 
@@ -23,7 +25,7 @@ origins = [
 # Define allowed origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -113,9 +115,31 @@ async def retrain(request: RetrainRequest):
             "val_accuracy": history.history['val_accuracy'][-1]
         }
 
-        cnn_model.save_model(filepath='model/braintumor.pkl')
+        cnn_model.save_model(filepath='model/braintumor1.pkl')
 
         return {"status": "Model retraining complete", "metrics": training_metrics}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post('/evaluate')
+async def evaluate():
+    try:
+        # Load the latest model
+        model = Model()
+        model.load_model(filepath=model_path)
+        
+        test_data_file = 'data/test/test_data.npz'
+
+        data = np.load(test_data_file)
+        X_test = data['X']
+        Y_test = data['Y']
+
+        # Evaluate the model
+        metrics = model.evaluate(X_test, Y_test)
+
+        return {
+            "evaluation": metrics
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
