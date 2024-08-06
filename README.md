@@ -4,6 +4,8 @@ This repository contains code and data for a brain tumor classification project.
 
 A Convolutional Neural Network (CNN) is a type of deep learning algorithm specifically designed for processing structured grid data such as images. CNNs are particularly effective for image recognition and classification tasks due to their ability to automatically learn spatial hierarchies of features through the use of convolutional layers.
 
+[Docker Image](https://hub.docker.com/r/kayc0des/brain_tumor_model)
+
 ## Project Structure
 
 The repository is structured as follows:
@@ -81,6 +83,19 @@ The repository is structured as follows:
          }
       }
       ```
+   
+      - `Evaluate Endpoint (/evaluate)` - POST Method : Evaluates the model
+
+       Response
+      ```json
+      {
+         "evaluation" :{
+            "accuracy": <accuracy_value>,
+            "classification_report": <accuracy_value>
+         }
+      }
+      ```
+
 
 ## Dataset
 
@@ -195,25 +210,6 @@ The results suggest that the CNN achieved good performance on the training data 
     ```bash
     uvicorn app:app --reload --host 0.0.0.0 --port 8000
     ```
-
-### Usage: Refer to Docs
-
-
-## Exposing the App with ngrok
-
-1. **Download and install ngrok**
-
-2. **Run FastAPI app**
-
-3. **Expose the app using ngrok on a new terminal**
-   ```bash
-   ngrok http 8000
-   ```
-3. **Access the public URL provided by ngrok:**
-   ```bash
-   https://<random-subdomain>.ngrok.io
-   ```
-
 
 ## Conclusion
 
