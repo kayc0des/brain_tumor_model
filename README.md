@@ -222,7 +222,7 @@ The results suggest that the CNN achieved good performance on the training data 
 
 ## Docker Image Instructions
 
-1. **Install Docker:** If you do not have docker installed, visit [Docker's official website]() to install docker.
+1. **Install Docker:** If you do not have docker installed, visit [Docker's official website](https://www.docker.com/) to install docker.
 
 2. **Log in to Docker Hub:** This is optional provided the repository is public
    ```bash
