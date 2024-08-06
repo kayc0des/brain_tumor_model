@@ -115,9 +115,11 @@ async def retrain(request: RetrainRequest):
             "val_accuracy": history.history['val_accuracy'][-1]
         }
 
-        cnn_model.save_model(filepath='model/braintumor1.pkl')
+        cnn_model.save_model(filepath='model/braintumor.pkl')
+        
+        evaluate_metrics = cnn_model.evaluate(X_test, Y_test)
 
-        return {"status": "Model retraining complete", "metrics": training_metrics}
+        return {"status": "Model retraining complete", "metrics": training_metrics, "evaluation": evaluate_metrics}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
